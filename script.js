@@ -55,4 +55,20 @@ document.addEventListener("DOMContentLoaded", function domContentHandler() {
     }
     paddle.style.top = `${paddleY}px`;
   });
+
+  document.addEventListener("mousemove", function eventHandler(event) {
+    let mouseDistanceFromTop = event.clientY;
+    let tableDistanceFromTop = pingPongTable.offsetTop;
+    let mousePointControl =
+      mouseDistanceFromTop - tableDistanceFromTop - paddle.offsetHeight / 2;
+    paddleY = mousePointControl;
+
+    if (
+      paddleY <= 0 ||
+      paddleY > pingPongTable.offsetHeight - paddle.offsetHeight
+    )
+      return;
+
+    paddle.style.top = `${paddleY}px`;
+  });
 });
