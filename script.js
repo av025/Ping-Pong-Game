@@ -1,37 +1,68 @@
 document.addEventListener("DOMContentLoaded", function domContentHandler() {
-  //* Accessing the ball div
+  /**
+   * Below we are accessing the divs with id ball, ping-pong-table and paddle with DOM document method getElementById()
+   *
+   * */
   let ball = document.getElementById("ball");
-  //* Accessing the ping-pong table
   const pingPongTable = document.getElementById("ping-pong-table");
-  //* Accessing the paddle
   const paddle = document.getElementById("paddle");
+  /**
+   * Here we creating variable to assign  initial coordinates of our ball x distance was 50 and y distance was 50
+   */
+  let ballX = 50;
+  let ballY = 50;
+  /**
+   * Here we creating the another variable for the movement of our ball in both x and y direction.
+   */
+  let dx = 2;
+  let dy = 2;
 
-  let ballX = 50; //* Distance of the top of the ball w.r.t ping pong table.
-  let ballY = 50; //* Distance of the left of the ball w.r.t ping pong table.
-
-  let dx = 2; //*  Displacement factor to x-direction.
-  let dy = 2; //*  Displacement factor to y-direction.
-
+  /**
+   * Here we assign the initial movement to our ball which we target and assign variable ballX and ballY coordinates
+   */
   ball.style.top = `${ballX}px `;
   ball.style.left = `${ballY}px `;
 
-  //? This setInterval was giving the animation to our ball in both x and y direction.
+  /**
+   * This setInterval function will help to implement our ball bouncing animation
+   */
+
   setInterval(function execute() {
-    //* Displacement should of of +2
+    /**
+     *  Here we update the value of ballX direction and ballY direction with the movement of the ball
+     */
     ballX += dx;
     ballY += dy;
     ball.style.left = `${ballX}px`;
     ball.style.top = `${ballY}px`;
-    // if(ballX > 770 || ballX <= 0)  dx *= -1 ;
-    // if(ballY > 370 || ballY <= 0) dy *= -1;
 
-    if (
-      ballX < paddle.offsetLett + paddle.offsetWidth &&
-      ballY > paddle.offsetTop &&
-      ballY - ball.offsetHeight < paddle.offsetTop + paddle.offsetHeight
-    ) {
-      dx *= -1;
-    }
+    /**
+ * This block handles the collision between the ball and the paddle.
+ * Let's understand the conditions:
+ * 
+ * 1st. If the ball's X-axis position (ballX) is less than the paddle's right edge 
+ *      (paddle.offsetLeft + paddle.offsetWidth) 
+ *      AND the ball's right edge (ballX + ball.offsetWidth) is greater than the paddle's left edge,
+ * 
+ * 2nd. AND the ball's bottom edge (ballY + ball.offsetHeight) is below the paddle's top,
+ *      AND the ball's top (ballY) is above the paddle's bottom edge (paddle.offsetTop + paddle.offsetHeight),
+ * 
+ * => Then both X and Y axes overlap, meaning the ball has hit the paddle.
+ * So we reverse the ball's horizontal direction by multiplying dx by -1.
+ * Also, we reset ballX to prevent the ball from getting stuck inside the paddle.
+ */
+
+   if (
+  ballX < paddle.offsetLeft + paddle.offsetWidth &&
+  ballX + ball.offsetWidth > paddle.offsetLeft && 
+  ballY + ball.offsetHeight > paddle.offsetTop &&
+  ballY < paddle.offsetTop + paddle.offsetHeight
+) {
+  dx *= -1;
+
+  ballX = paddle.offsetLeft + paddle.offsetWidth;
+}
+
 
     if (ballX > pingPongTable.offsetWidth - ball.offsetWidth || ballX <= 0)
       dx *= -1;
@@ -41,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function domContentHandler() {
 
   let paddleY = 0;
 
-  let dPy = 10; //* Displacement Paddle to y-direction + y direction
+  let dPy = 10;
 
   document.addEventListener("keydown", function (event) {
     event.preventDefault();
