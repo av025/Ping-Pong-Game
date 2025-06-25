@@ -36,6 +36,7 @@ let paddleY = 0;
 let dPy = 5;   //* Displacement Paddle to y-direction + y direction 
 
   document.addEventListener("keydown", function (event) {
+    event.preventDefault();
     if (event.keyCode == 38 && paddleY > 0) {
       paddleY += (-1) * dPy; 
     } else if (event.keyCode == 40 && paddleY < pingPongTable.offsetHeight - paddle.offsetHeight) {
