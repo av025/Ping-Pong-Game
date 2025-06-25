@@ -7,7 +7,7 @@ html {
 } 
 
 
-.ping-pong-table {
+#ping-pong-table {
     border: 2px solid #111;
     width: 800px;
     height: 400px;
@@ -16,7 +16,7 @@ html {
 } 
 
 #paddle {
-    background-color: blue;
+    background-color: goldenrod;
     width: 10px;
     height: 80px;
     border-radius: 10px;
@@ -25,7 +25,7 @@ html {
 }
 
 #ball {
-    background-color: red;
+    background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
     width: 30px;
     height: 30px;
     border-radius: 100%;
